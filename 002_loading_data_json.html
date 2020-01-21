@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Learn D3.js V5</title>
+  </head>
+  <body>
+    <h1>Loading Data from external Sources - JSON</h1>
+    <script>
+
+      d3.json("data.json").then(function(data) {
+        console.log(data);
+        generate(data);
+      });
+
+      function generate(dataset) {
+        const el = d3.select("body")
+                      .selectAll('p')
+                      .data(dataset)
+                      .enter()
+                      .append('p')
+                      .text(function (d) {
+                        return 'this is a paragraph ' + d;
+                      })
+                      .style('color', function(d) {
+                        if (d < 15) {
+                          return 'orange'
+                        } else {
+                          return 'green'
+                        }
+                      })
+      }
+    </script>
+  </body>
+</html>
