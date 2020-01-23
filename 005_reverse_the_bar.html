@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Learn D3.js V5</title>
+  </head>
+  <body>
+    <h1>Reverse the Bar</h1>
+    <div id="barchart"></div>
+    <script>
+      const data = [];
+
+      const barchart_width = 800;
+      const barchart_height = 400;
+      const bar_padding = 5;
+
+      for (let i = 0; i < 20; i++) {
+        const num = Math.floor(d3.randomUniform(1, 60)());
+        data.push(num);
+      }
+
+      // create an SVG element
+      const svg = d3.select("#barchart")
+                  .append("svg")
+                  .attr("width", 800)
+                  .attr("height", 400)
+
+      // bind data and create the bars
+      svg.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i){
+          return i*(barchart_width/data.length);
+        })
+        .attr("y", function(d){
+          return barchart_height - d * 5;
+        })
+        .attr("width", barchart_width/data.length - bar_padding)
+        .attr("height", function(d){
+          return d * 5;
+        })
+        .attr("fill", "green")
+
+    </script>
+  </body>
+</html>
